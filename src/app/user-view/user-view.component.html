@@ -5,6 +5,7 @@
             <th><strong>Username</strong></th>
             <th><strong>Name</strong></th>
             <th><strong>Email</strong></th>
+            <th><strong>ID</strong></th>
           </tr>
         </thead>
         <tbody>
@@ -12,9 +13,14 @@
             <td>{{user.user.username}}</td>
             <td>{{user.user.last_name}}, {{user.user.first_name}}</td>
             <td>{{user.user.email}}</td>
+            <td>{{user.user._id}}</td>
           </tr>
         </tbody>
   </table>
+
+  <button [routerLink]="['/users/edit/', user.user._id]">edit</button>
+  <button (click)="deleteUser(user.user._id)">delete</button>
+
 </div>
 
 <!--<div *ngIf="user">

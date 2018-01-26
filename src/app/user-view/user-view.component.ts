@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../user.service';
 import { User } from '../user';
 import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-view',
@@ -14,6 +15,7 @@ export class UserViewComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private userService: UserService
   ) { }
 
@@ -26,10 +28,16 @@ export class UserViewComponent implements OnInit {
 
   getUser(id): void {
     this.userService.getUser(id).subscribe(
-      user => {
-        this.user = user;
-        console.log(this.user);
-      }
+      user => this.user = user
     );
   }
+
+  deleteUser(id: string): void {
+    if(confirm("Are you sure you want to delete " + this.user.user.username)) {
+      this.userService.deleteUser(id).subscribe(
+        ()=>{this.router.navigate(['/users'])}
+      );
+    }
+  }
+
 }
